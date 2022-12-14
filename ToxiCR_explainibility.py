@@ -728,9 +728,9 @@ sentences=["go fuck yourself",
 #attention_mask=[[]]
 explanations = Generator(model)
 for i in range(len(sentences)):
-    encoding = tokenizer(sentences[i], return_tensors='pt')
-    #print(encoding['input_ids'].to("cuda"))
-    #print(encoding['attention_mask'].to("cuda"))
+    encoding = tokenizer(sentences[i], padding=False, return_tensors='pt')
+    print(encoding['input_ids'].to("cuda"))
+    print(encoding['attention_mask'].to("cuda"))
     input_ids =encoding['input_ids'].to("cuda")
     attention_mask = encoding['attention_mask'].to("cuda")
     expl = explanations.generate_LRP(input_ids=input_ids, attention_mask=attention_mask, start_layer=0)[0]
@@ -741,7 +741,7 @@ for i in range(len(sentences)):
     output = torch.nn.functional.softmax(model(input_ids=input_ids, attention_mask=attention_mask)[0], dim=-1)
     classification = output.argmax(dim=-1).item()
     class_name = classifications[classification]
-    print(sentences[i], "---is predicted: --", class_name)
+    #print(sentences[i], "---is predicted: --", class_name)
     if class_name == "toxic":
       expl *= (-1)
     if class_name == "toxic":
