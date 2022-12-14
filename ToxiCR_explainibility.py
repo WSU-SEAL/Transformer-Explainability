@@ -726,6 +726,7 @@ sentences=["go fuck yourself",
 #text_batch = ["This movie was the best movie I have ever seen! some scenes were ridiculous, but acting was great."]
 #input_ids=[[]]
 #attention_mask=[[]]
+'''
 explanations = Generator(model)
 for i in range(len(sentences)):
     encoding = tokenizer(sentences[i], padding=False, return_tensors='pt')
@@ -748,7 +749,7 @@ for i in range(len(sentences)):
         tokens = tokenizer.convert_ids_to_tokens(input_ids.flatten())
         print([(tokens[i], expl[i].item()) for i in range(len(tokens))])
     
-    
+'''  
 
 # %%
 '''
